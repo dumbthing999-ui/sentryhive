@@ -1,0 +1,26 @@
+{
+  "naive_rule": {
+    "accuracy_pct": 57.8,
+    "precision_pct": 37.2,
+    "recall_pct": 100.0,
+    "f1_score": 0.5423,
+    "false_positive_rate_pct": 56.27,
+    "latency_ms": 0.0
+  },
+  "gas_only": {
+    "accuracy_pct": 78.2,
+    "precision_pct": 53.42,
+    "recall_pct": 100.0,
+    "f1_score": 0.6964,
+    "false_positive_rate_pct": 29.07,
+    "latency_ms": 0.0
+  },
+  "sentryhive_tinyml": {
+    "accuracy_pct": 86.3,
+    "precision_pct": 64.6,
+    "recall_pct": 100.0,
+    "f1_score": 0.7849,
+    "false_positive_rate_pct": 18.27,
+    "latency_ms": 28.4
+  }
+}

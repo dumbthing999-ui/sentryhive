@@ -1,0 +1,62 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /home/kali/volthacks-project/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/kali/volthacks-project
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 42 items
+
+tests/test_backend.py::test_battery_metrics_degradation_tiers PASSED     [  2%]
+tests/test_backend.py::test_particulate_ratio_auto_calculation PASSED    [  4%]
+tests/test_backend.py::test_geocoordinates_bounds PASSED                 [  7%]
+tests/test_backend.py::test_modality_1_gas_kinetics_evaluation PASSED    [  9%]
+tests/test_backend.py::test_modality_2_particulate_diagnostic_ratio PASSED [ 11%]
+tests/test_backend.py::test_modality_3_thermal_radiance PASSED           [ 14%]
+tests/test_backend.py::test_modality_4_acoustic_cavitation PASSED        [ 16%]
+tests/test_backend.py::test_fusion_engine_nominal_baseline PASSED        [ 19%]
+tests/test_backend.py::test_fusion_engine_smoldering_and_crown_fire PASSED [ 21%]
+tests/test_backend.py::test_ab_comparison_dust_storm_false_positive_rejection PASSED [ 23%]
+tests/test_backend.py::test_ab_comparison_heatwave_false_positive_rejection PASSED [ 26%]
+tests/test_backend.py::test_ab_comparison_phase_0_early_warning PASSED   [ 28%]
+tests/test_backend.py::test_benchmark_suite_execution PASSED             [ 30%]
+tests/test_backend.py::test_single_packet_ingest PASSED                  [ 33%]
+tests/test_backend.py::test_batch_packet_ingest PASSED                   [ 35%]
+tests/test_backend.py::test_binary_lora_frame_roundtrip PASSED           [ 38%]
+tests/test_backend.py::test_cbor_packet_decoding PASSED                  [ 40%]
+tests/test_backend.py::test_invalid_binary_frame_rejection PASSED        [ 42%]
+tests/test_backend.py::test_alert_generation_and_escalation PASSED       [ 45%]
+tests/test_backend.py::test_alert_lifecycle_acknowledgment_and_resolution PASSED [ 47%]
+tests/test_backend.py::test_alert_geojson_features PASSED                [ 50%]
+tests/test_backend.py::test_api_health PASSED                            [ 52%]
+tests/test_backend.py::test_api_telemetry_single_ingest PASSED           [ 54%]
+tests/test_backend.py::test_api_telemetry_batch_ingest PASSED            [ 57%]
+tests/test_backend.py::test_api_telemetry_cbor_binary_ingest PASSED      [ 59%]
+tests/test_backend.py::test_api_telemetry_latest_and_history PASSED      [ 61%]
+tests/test_backend.py::test_api_fleet_nodes PASSED                       [ 64%]
+tests/test_backend.py::test_api_alerts_endpoints PASSED                  [ 66%]
+tests/test_backend.py::test_api_ml_evaluate_and_benchmark PASSED         [ 69%]
+tests/test_backend.py::test_api_gis_features PASSED                      [ 71%]
+tests/test_backend.py::test_api_simulation_injection PASSED              [ 73%]
+tests/test_backend.py::test_websocket_dashboard_stream PASSED            [ 76%]
+tests/test_backend.py::test_websocket_node_uplink_stream PASSED          [ 78%]
+tests/test_extended_services.py::test_triangulation_service_no_anomaly PASSED [ 80%]
+tests/test_extended_services.py::test_triangulation_service_with_fire_anomaly PASSED [ 83%]
+tests/test_extended_services.py::test_risk_forecasting_engine PASSED     [ 85%]
+tests/test_extended_services.py::test_fault_injection_service PASSED     [ 88%]
+tests/test_extended_services.py::test_incident_manager_lifecycle PASSED  [ 90%]
+tests/test_extended_services.py::test_api_extended_endpoints PASSED      [ 92%]
+tests/test_simulation.py::test_normal_baseline_scenario PASSED           [ 95%]
+tests/test_simulation.py::test_dust_storm_rejection_by_ai PASSED         [ 97%]
+tests/test_simulation.py::test_smoldering_wildfire_detection PASSED      [100%]
+
+=============================== warnings summary ===============================
+tests/test_backend.py:18
+  /home/kali/volthacks-project/tests/test_backend.py:18: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient
+
+.venv/lib/python3.14/site-packages/starlette/testclient.py:53
+  /home/kali/volthacks-project/.venv/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 42 passed, 2 warnings in 2.87s ========================

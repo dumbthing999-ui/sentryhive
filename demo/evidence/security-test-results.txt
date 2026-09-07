@@ -1,0 +1,25 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /home/kali/volthacks-project/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/kali/volthacks-project
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 5 items
+
+tests/test_security_hardening.py::test_security_reject_nan_infinity_coordinates PASSED [ 20%]
+tests/test_security_hardening.py::test_security_reject_out_of_bounds_coordinates PASSED [ 40%]
+tests/test_security_hardening.py::test_security_reject_negative_physical_parameters PASSED [ 60%]
+tests/test_security_hardening.py::test_security_safe_incident_report_sanitization PASSED [ 80%]
+tests/test_security_hardening.py::test_security_fleet_scale_limits PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_security_hardening.py:2
+  /home/kali/volthacks-project/tests/test_security_hardening.py:2: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient
+
+.venv/lib/python3.14/site-packages/starlette/testclient.py:53
+  /home/kali/volthacks-project/.venv/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 5 passed, 2 warnings in 1.87s =========================
