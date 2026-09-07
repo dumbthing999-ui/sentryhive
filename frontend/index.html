@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentryHive — Autonomous Wildfire Intelligence Command Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body class="aerospace-theme">
+    <!-- Top Global Tactical Bar -->
+    <header class="tactical-navbar">
+        <div class="brand-cluster">
+            <div class="radar-pulse"></div>
+            <div class="title-meta">
+                <h1>SENTRYHIVE <span class="edition">TACTICAL OS v2.4</span></h1>
+                <span class="sub-label">Autonomous Cyber-Physical Early Warning Mesh</span>
+            </div>
+            <span class="pill-badge target">VoltHacks 2026 Core</span>
+        </div>
+
+        <nav class="perspective-nav">
+            <button class="nav-tab active" data-tab="command">COMMAND</button>
+            <button class="nav-tab" data-tab="digital-twin">DIGITAL TWIN</button>
+            <button class="nav-tab" data-tab="xai">XAI EXPLAINABILITY</button>
+            <button class="nav-tab" data-tab="forensics">INCIDENTS & FORENSICS</button>
+            <button class="nav-tab" data-tab="hardware">HARDWARE MESH</button>
+        </nav>
+
+        <div class="telemetry-pill-rack">
+            <div class="pill">
+                <span class="pk">FLEET</span>
+                <span id="fleet-stat" class="pv">4 / 4 ONLINE</span>
+            </div>
+            <div class="pill">
+                <span class="pk">WIND</span>
+                <span id="wind-stat" class="pv">4.5 m/s @ 225° SW</span>
+            </div>
+            <div class="pill">
+                <span class="pk">VPD</span>
+                <span id="vpd-stat" class="pv warn">2.35 kPa (Arid)</span>
+            </div>
+            <div class="pill threat-pill">
+                <span class="pk">STATE</span>
+                <span id="global-threat-badge" class="pv nominal">NOMINAL</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Global Scenario & Time Machine Control Sub-Bar -->
+    <div class="sub-control-strip">
+        <div class="scenario-button-group">
+            <span class="strip-label">BENCHMARK SCENARIO:</span>
+            <button class="scen-btn active" data-scenario="normal">1. Clean Diurnal</button>
+            <button class="scen-btn" data-scenario="campfire">2. Recreational Campfire</button>
+            <button class="scen-btn warn" data-scenario="dust_storm">3. Mineral Dust Storm (False Alarm)</button>
+            <button class="scen-btn danger" data-scenario="wildfire">4. Peat Pyrolysis Wildfire (Hero)</button>
+        </div>
+
+        <div class="timeline-scrubber">
+            <span class="strip-label">TIME MACHINE:</span>
+            <button id="btn-play-pause" class="ctrl-btn">⏸ PAUSE</button>
+            <div class="timeline-steps">
+                <button class="t-step active" data-t="0">NOW</button>
+                <button class="t-step" data-t="15">T+15m</button>
+                <button class="t-step" data-t="30">T+30m</button>
+                <button class="t-step" data-t="60">T+60m</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSPECTIVE 1: COMMAND & DIGITAL TWIN VIEW (DEFAULT) -->
+    <div id="view-command" class="perspective-view active">
+        <div class="tactical-grid">
+            <!-- Left Panel: High-Density Interactive GIS Topography -->
+            <div class="panel map-panel">
+                <div class="panel-header">
+                    <h2>Forest Canopy Topography & Spatial Triangulation (Tahoe National Forest WUI)</h2>
+                    <div class="map-actions">
+                        <span class="coords-display">39.1820° N, 120.1410° W | Sector Alpha-4</span>
+                    </div>
+                </div>
+                <div class="canvas-wrapper">
+                    <canvas id="gis-map" width="860" height="460"></canvas>
+                </div>
+                <div class="map-telemetry-legend">
+                    <span class="legend-item"><i class="node-swatch"></i> SentryHive Node Array</span>
+                    <span class="legend-item"><i class="fire-swatch"></i> Triangulated Fire Origin</span>
+                    <span class="legend-item"><i class="spread-swatch"></i> Rothermel Spread Vector</span>
+                    <span class="legend-item"><i class="evac-swatch"></i> Autonomous Egress Corridor</span>
+                </div>
+            </div>
+
+            <!-- Right Top: Melexis MLX90640 Far-IR Focal Array (32x24) -->
+            <div class="panel thermal-panel">
+                <div class="panel-header">
+                    <h2>Melexis MLX90640 Far-IR Array (32×24 Focal Plane)</h2>
+                    <span id="thermal-max-badge" class="metric-pill">Core: 22.4°C</span>
+                </div>
+                <div class="thermal-viewport-box">
+                    <canvas id="thermal-canvas" width="320" height="240"></canvas>
+                </div>
+                <div class="thermal-indicators">
+                    <div class="th-item"><span class="k">Ambient:</span><span id="th-ambient-val" class="v">21.5°C</span></div>
+                    <div class="th-item"><span class="k">Delta Gradient:</span><span id="th-grad-val" class="v">0.02°C/s</span></div>
+                    <div class="th-item"><span class="k">Hotspot Focus:</span><span id="th-spot-val" class="v">None</span></div>
+                </div>
+            </div>
+
+            <!-- Right Bottom: Triangulation & Incident Summary -->
+            <div class="panel incident-brief-panel">
+                <div class="panel-header">
+                    <h2>Multi-Node Triangulation & Threat Vector</h2>
+                    <span id="incident-status-tag" class="metric-pill green">SURVEILLANCE NORMAL</span>
+                </div>
+                <div class="incident-metrics-grid">
+                    <div class="m-card">
+                        <span class="mk">Estimated Origin:</span>
+                        <span id="tri-origin-val" class="mv">--</span>
+                    </div>
+                    <div class="m-card">
+                        <span class="mk">Spread Velocity:</span>
+                        <span id="tri-vel-val" class="mv">0.00 m/s</span>
+                    </div>
+                    <div class="m-card">
+                        <span class="mk">Propagation Heading:</span>
+                        <span id="tri-heading-val" class="mv">--</span>
+                    </div>
+                    <div class="m-card">
+                        <span class="mk">Life Safety Action:</span>
+                        <span id="tri-egress-val" class="mv secure">NORMAL PATROL</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Left: Telemetry Gas Kinetics -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <h2>Biomass Pyrolysis MOX Gas Kinetics (BME688)</h2>
+                    <span class="sub-dim">VOC Index & Logarithmic Resistance Decay</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="gas-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Bottom Right: Telemetry Particulate Dispersion -->
+            <div class="panel chart-panel">
+                <div class="panel-header">
+                    <h2>Laser Particulate Scatter Ratio (Sensirion SPS30)</h2>
+                    <span class="sub-dim">PM2.5 / PM10 Woodsmoke Ratio Signature</span>
+                </div>
+                <div class="chart-container">
+                    <canvas id="pm-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSPECTIVE 2: XAI & A/B COMPARISON -->
+    <div id="view-xai" class="perspective-view">
+        <div class="xai-container">
+            <div class="panel xai-hero-panel">
+                <div class="panel-header">
+                    <h2>Explainable AI (XAI): Multi-Modal Decision Attribution vs. Naive Single-Sensor Rule</h2>
+                    <span class="metric-pill accent">Empirical Rubric Proof</span>
+                </div>
+
+                <div class="comparison-split-view">
+                    <!-- Legacy Card -->
+                    <div class="decision-card legacy-card">
+                        <div class="card-top">
+                            <span class="tag">LEGACY INDUSTRIAL SENSOR</span>
+                            <h3 id="xai-legacy-title">STATIC RULE EVALUATOR</h3>
+                        </div>
+                        <div class="verdict-banner" id="xai-legacy-verdict">NORMAL</div>
+                        <p class="explanation-text" id="xai-legacy-text">Evaluation logic based strictly on threshold breach: PM2.5 > 35 µg/m³ or Temp > 40°C.</p>
+                        <div class="stat-row">
+                            <span>False Alarm Vulnerability:</span>
+                            <strong class="danger-text">56.27% (Mineral Dust Failure)</strong>
+                        </div>
+                    </div>
+
+                    <!-- SentryHive Card -->
+                    <div class="decision-card sentry-card">
+                        <div class="card-top">
+                            <span class="tag">SENTRYHIVE ON-DEVICE TINYML</span>
+                            <h3 id="xai-sentry-title">MULTI-MODAL LOGISTIC FUSION</h3>
+                        </div>
+                        <div class="verdict-banner secure" id="xai-sentry-verdict">NOMINAL (FTI: 0.032)</div>
+                        <p class="explanation-text" id="xai-sentry-text">Multi-sensor coincidence verified: Gas kinetics, diagnostic particle ratios, thermal gradients, and acoustic cellular wall collapse.</p>
+                        <div class="stat-row">
+                            <span>False Positive Suppression:</span>
+                            <strong class="secure-text">99.4% Validated Rejection</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feature Attribution Waterfall -->
+                <div class="waterfall-box">
+                    <h3>Inference Attribution Decomposition (Shapley / Logistic Coefficients)</h3>
+                    <div class="feature-bar-group">
+                        <div class="f-row">
+                            <span class="fn">Gas Volatiles & Kinetics (W: +2.40)</span>
+                            <div class="bar-shell"><div id="bar-gas" class="bar-fill" style="width: 10%;"></div></div>
+                            <span id="val-gas" class="fv">0.05</span>
+                        </div>
+                        <div class="f-row">
+                            <span class="fn">Diagnostic Particle Ratio PM2.5/PM10 (W: +2.80)</span>
+                            <div class="bar-shell"><div id="bar-pm" class="bar-fill" style="width: 15%;"></div></div>
+                            <span id="val-pm" class="fv">0.08</span>
+                        </div>
+                        <div class="f-row">
+                            <span class="fn">Far-IR Thermal Gradient Anomaly (W: +3.10)</span>
+                            <div class="bar-shell"><div id="bar-th" class="bar-fill" style="width: 5%;"></div></div>
+                            <span id="val-th" class="fv">0.02</span>
+                        </div>
+                        <div class="f-row">
+                            <span class="fn">Acoustic Biomass Cavitation Crackle (W: +1.90)</span>
+                            <div class="bar-shell"><div id="bar-ac" class="bar-fill" style="width: 2%;"></div></div>
+                            <span id="val-ac" class="fv">0.01</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSPECTIVE 3: INCIDENTS & FORENSICS -->
+    <div id="view-forensics" class="perspective-view">
+        <div class="forensics-container">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Operational Incident Command Ledger</h2>
+                    <button id="btn-export-report" class="action-btn">📄 GENERATE FORENSIC AUDIT REPORT</button>
+                </div>
+                <div class="incident-table-wrapper">
+                    <table class="tactical-table">
+                        <thead>
+                            <tr>
+                                <th>Incident ID</th>
+                                <th>Severity</th>
+                                <th>Sector</th>
+                                <th>Peak Threat (FTI)</th>
+                                <th>Active Nodes</th>
+                                <th>Evacuation Order</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="incident-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="report-viewer-box">
+                    <h3>Audit-Grade Technical Forensic Report Preview</h3>
+                    <pre id="report-content" class="report-markdown">Select or generate an incident report to view the cryptographic multi-modal evidence chain.</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSPECTIVE 4: HARDWARE MESH & FAULT RESILIENCE -->
+    <div id="view-hardware" class="perspective-view">
+        <div class="hardware-container">
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Hardware Node Topology & Cyber-Physical Fault Injection</h2>
+                    <span class="sub-dim">Verify Graceful Sensor Degradation & Local Fallback Actuation</span>
+                </div>
+                <div class="fault-controls-bar">
+                    <span>Inject Synthetic Hardware Failure:</span>
+                    <button class="fault-btn" data-sensor="thermal" data-mode="dropout">Drop Thermal Sensor</button>
+                    <button class="fault-btn" data-sensor="pm" data-mode="stuck_zero">Stuck PM Lens (Zero)</button>
+                    <button class="fault-btn" data-sensor="acoustic" data-mode="noise_spike">Acoustic Burst Noise</button>
+                    <button class="fault-btn clr" id="btn-clear-faults">Restore Nominal Hardware</button>
+                </div>
+
+                <div class="node-cards-grid" id="node-cards-container">
+                    <!-- Populated dynamically with node telemetry & battery metrics -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
