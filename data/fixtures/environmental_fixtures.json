@@ -1,0 +1,81 @@
+{
+  "raws_stations": [
+    {
+      "station_id": "RAWS-TAHOE-01",
+      "name": "Truckee Ranger District RAWS",
+      "network": "USFS RAWS",
+      "latitude": 39.328,
+      "longitude": -120.183,
+      "elevation_m": 1828.0,
+      "vegetation_zone": "Sierran Mixed Conifer",
+      "temperature_c": 26.8,
+      "relative_humidity_pct": 21.0,
+      "wind_speed_m_s": 5.2,
+      "wind_direction_deg": 225.0,
+      "wind_gust_m_s": 8.4,
+      "fuel_moisture_10hr_pct": 6.8,
+      "solar_radiation_w_m2": 840.0
+    },
+    {
+      "station_id": "RAWS-TAHOE-02",
+      "name": "Rubicon Peak Weather Tower",
+      "network": "USFS RAWS",
+      "latitude": 39.002,
+      "longitude": -120.142,
+      "elevation_m": 2580.0,
+      "vegetation_zone": "Subalpine Fir & Lodgepole Pine",
+      "temperature_c": 22.4,
+      "relative_humidity_pct": 24.5,
+      "wind_speed_m_s": 6.8,
+      "wind_direction_deg": 240.0,
+      "wind_gust_m_s": 11.2,
+      "fuel_moisture_10hr_pct": 7.4,
+      "solar_radiation_w_m2": 890.0
+    }
+  ],
+  "firms_satellite_hotspots": [
+    {
+      "observation_id": "FIRMS-MODIS-20260907-01",
+      "station_id": "AQUA-MODIS-ORBIT",
+      "station_name": "NASA Aqua MODIS Thermal Satellite",
+      "provider_name": "NASA FIRMS",
+      "latitude": 39.184,
+      "longitude": -120.138,
+      "satellite_brightness_kelvin": 338.5,
+      "satellite_confidence_pct": 86.0,
+      "satellite_frp_mw": 14.8,
+      "provenance": "SATELLITE",
+      "timestamp_utc": 1788720000.0
+    }
+  ],
+  "openaq_sensors": [
+    {
+      "station_id": "OPENAQ-TAHOE-CITY",
+      "name": "Tahoe City Air Monitoring Station",
+      "network": "OpenAQ Global Mesh",
+      "latitude": 39.171,
+      "longitude": -120.144,
+      "elevation_m": 1900.0,
+      "vegetation_zone": "Lakeside Urban-Forest Interface",
+      "pm2_5_ug_m3": 12.4,
+      "pm10_ug_m3": 18.2,
+      "co_ppm": 0.32
+    }
+  ],
+  "neon_ecological_towers": [
+    {
+      "station_id": "NEON-SOAPROOT",
+      "name": "NEON Soaproot Saddle Canopy Flux Tower",
+      "network": "National Ecological Observatory Network",
+      "latitude": 39.215,
+      "longitude": -120.16,
+      "elevation_m": 2100.0,
+      "vegetation_zone": "Ponderosa Pine Canopy Biosphere",
+      "temperature_c": 25.1,
+      "relative_humidity_pct": 28.0,
+      "co_ppm": 0.28,
+      "voc_ppb": 48.0,
+      "solar_radiation_w_m2": 810.0
+    }
+  ]
+}

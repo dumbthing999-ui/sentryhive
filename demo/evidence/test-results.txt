@@ -1,0 +1,56 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /home/kali/volthacks-project/.venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/kali/volthacks-project
+plugins: anyio-4.15.1, asyncio-1.4.0
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 36 items
+
+tests/test_backend.py::test_battery_metrics_degradation_tiers PASSED     [  2%]
+tests/test_backend.py::test_particulate_ratio_auto_calculation PASSED    [  5%]
+tests/test_backend.py::test_geocoordinates_bounds PASSED                 [  8%]
+tests/test_backend.py::test_modality_1_gas_kinetics_evaluation PASSED    [ 11%]
+tests/test_backend.py::test_modality_2_particulate_diagnostic_ratio PASSED [ 13%]
+tests/test_backend.py::test_modality_3_thermal_radiance PASSED           [ 16%]
+tests/test_backend.py::test_modality_4_acoustic_cavitation PASSED        [ 19%]
+tests/test_backend.py::test_fusion_engine_nominal_baseline PASSED        [ 22%]
+tests/test_backend.py::test_fusion_engine_smoldering_and_crown_fire PASSED [ 25%]
+tests/test_backend.py::test_ab_comparison_dust_storm_false_positive_rejection PASSED [ 27%]
+tests/test_backend.py::test_ab_comparison_heatwave_false_positive_rejection PASSED [ 30%]
+tests/test_backend.py::test_ab_comparison_phase_0_early_warning PASSED   [ 33%]
+tests/test_backend.py::test_benchmark_suite_execution PASSED             [ 36%]
+tests/test_backend.py::test_single_packet_ingest PASSED                  [ 38%]
+tests/test_backend.py::test_batch_packet_ingest PASSED                   [ 41%]
+tests/test_backend.py::test_binary_lora_frame_roundtrip PASSED           [ 44%]
+tests/test_backend.py::test_cbor_packet_decoding PASSED                  [ 47%]
+tests/test_backend.py::test_invalid_binary_frame_rejection PASSED        [ 50%]
+tests/test_backend.py::test_alert_generation_and_escalation PASSED       [ 52%]
+tests/test_backend.py::test_alert_lifecycle_acknowledgment_and_resolution PASSED [ 55%]
+tests/test_backend.py::test_alert_geojson_features PASSED                [ 58%]
+tests/test_backend.py::test_api_health PASSED                            [ 61%]
+tests/test_backend.py::test_api_telemetry_single_ingest PASSED           [ 63%]
+tests/test_backend.py::test_api_telemetry_batch_ingest PASSED            [ 66%]
+tests/test_backend.py::test_api_telemetry_cbor_binary_ingest PASSED      [ 69%]
+tests/test_backend.py::test_api_telemetry_latest_and_history PASSED      [ 72%]
+tests/test_backend.py::test_api_fleet_nodes PASSED                       [ 75%]
+tests/test_backend.py::test_api_alerts_endpoints PASSED                  [ 77%]
+tests/test_backend.py::test_api_ml_evaluate_and_benchmark PASSED         [ 80%]
+tests/test_backend.py::test_api_gis_features PASSED                      [ 83%]
+tests/test_backend.py::test_api_simulation_injection PASSED              [ 86%]
+tests/test_backend.py::test_websocket_dashboard_stream PASSED            [ 88%]
+tests/test_backend.py::test_websocket_node_uplink_stream PASSED          [ 91%]
+tests/test_simulation.py::test_normal_baseline_scenario PASSED           [ 94%]
+tests/test_simulation.py::test_dust_storm_rejection_by_ai PASSED         [ 97%]
+tests/test_simulation.py::test_smoldering_wildfire_detection PASSED      [100%]
+
+=============================== warnings summary ===============================
+tests/test_backend.py:18
+  /home/kali/volthacks-project/tests/test_backend.py:18: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient
+
+.venv/lib/python3.14/site-packages/starlette/testclient.py:53
+  /home/kali/volthacks-project/.venv/lib/python3.14/site-packages/starlette/testclient.py:53: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = Callable[[], AbstractContextManager[anyio.abc.BlockingPortal]]
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 36 passed, 2 warnings in 1.91s ========================
